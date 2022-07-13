@@ -61,7 +61,7 @@ ASAP ->
         group2select = $('.group-filters > *.selected').attr('data-group')
         initial_selector = if group2select != '*' then "[data-group*='#{ group2select }']" else '*'
 
-        $grid = $('.card-grid').isotope
+        $grid = $('.cards-grid').isotope
             itemSelector: '.card-cell'
             layoutMode: 'fitRows'
             stagger: 30

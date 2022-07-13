@@ -121,7 +121,7 @@ ASAP(function() {
     });
     group2select = $('.group-filters > *.selected').attr('data-group');
     initial_selector = group2select !== '*' ? "[data-group*='" + group2select + "']" : '*';
-    $grid = $('.card-grid').isotope({
+    $grid = $('.cards-grid').isotope({
       itemSelector: '.card-cell',
       layoutMode: 'fitRows',
       stagger: 30,
