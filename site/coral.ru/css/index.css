@@ -67,6 +67,9 @@
 .rur:not(:empty):after {
   content: ' \20BD ';
 }
+.rur.per-person:not(:empty):after {
+  content: ' \20BD / чел.';
+}
 .flex-center {
   display: flex;
   justify-content: center;
@@ -245,12 +248,32 @@
   font-weight: normal;
   font-size: 1em;
   line-height: 1.2;
-  height: 3.6em;
   text-align: inherit;
   margin: 0;
 }
 #hotels-set .cards-grid .card-cell > .pad .info .terms {
   font-weight: normal;
   line-height: 1;
-  text-transform: uppercase;
+}
+#hotels-set .cards-grid .card-cell > .pad .info .terms .depart-from-accomodation {
+  display: flex;
+  justify-content: center;
+}
+#hotels-set .cards-grid .card-cell > .pad .info .terms .depart-from-accomodation .depart-from:before {
+  content: 'из ';
+}
+#hotels-set .cards-grid .card-cell > .pad .info .terms .depart-from-accomodation .separator {
+  font-weight: bold;
+  margin: 0 0.5em;
+}
+#hotels-set .cards-grid .card-cell > .pad .info .terms .price-info {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+#hotels-set .cards-grid .card-cell > .pad .info .terms .price-info.from:before {
+  content: 'от ';
+  font-weight: normal;
+}
+#hotels-set .cards-grid .card-cell > .pad .info .terms .price-info:after {
+  font-weight: normal;
 }

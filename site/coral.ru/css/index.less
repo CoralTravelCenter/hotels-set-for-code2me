@@ -137,7 +137,6 @@
 						font-weight: normal;
 						font-size: 1em;
 						line-height: 1.2;
-						height: 3.6em;
 						text-align: inherit;
 						margin: 0;
 					}
@@ -145,7 +144,31 @@
 					.terms {
 						font-weight: normal;
 						line-height: 1;
-						text-transform: uppercase;
+						.depart-from-accomodation {
+							display: flex;
+							justify-content: center;
+							.depart-from {
+								&:before {
+									content: 'из ';
+								}
+							}
+							.separator {
+								font-weight: bold;
+								margin: 0 .5em;
+							}
+						}
+						.price-info {
+							font-weight: bold;
+							font-size: 1.2em;
+							&.from:before {
+								content: 'от ';
+								font-weight: normal;
+								//font-size: 10/12em;
+							}
+							&:after {
+								font-weight: normal;
+							}
+						}
 					}
 				}
 			}

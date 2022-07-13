@@ -67,9 +67,11 @@
 .rur:not(:empty):after {
   content: ' \20BD ';
 }
+.rur.per-person:not(:empty):after {
+  content: ' \20BD / чел.';
+}
 .flex-center {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-/*# sourceMappingURL=index.css.map */
