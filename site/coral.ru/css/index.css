@@ -319,3 +319,11 @@
 #hotels-set .cards-grid .card-cell > .pad .info .price-info:after {
   font-weight: normal;
 }
+#hotels-set .cards-grid .card-cell > .pad .info .actions .buttonlike {
+  font-size: 13px;
+}
+@media screen and (max-width: 576px) {
+  #hotels-set .cards-grid .card-cell > .pad .info .actions .buttonlike {
+    font-size: 12px;
+  }
+}
