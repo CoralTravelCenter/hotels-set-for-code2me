@@ -105,22 +105,10 @@ ASAP(function() {
   libs = ['https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js'];
   return preload(libs, function() {
     var $grid, group2select, initial_selector;
-    $('.group-filters > *').each(function(idx, el) {
-      var $el, default_group_removed, group2check;
-      $el = $(el);
-      group2check = $el.attr('data-group');
-      if (group2check !== '*') {
-        if (!$(".card-cell[data-group*='" + group2check + "']").length) {
-          default_group_removed = $el.hasClass('selected') || default_group_removed;
-          $el.remove();
-        }
-      }
-      if (default_group_removed) {
-        return $('.group-filters [data-group="*"]').addClass('selected');
-      }
-    });
-    group2select = $('.group-filters > *.selected').attr('data-group');
-    initial_selector = group2select !== '*' ? "[data-group*='" + group2select + "']" : '*';
+    initial_selector = '*';
+    if (group2select = $('.group-filters > *.selected').attr('data-group')) {
+      initial_selector = group2select !== '*' ? "[data-group*='" + group2select + "']" : '*';
+    }
     $grid = $('.cards-grid').isotope({
       itemSelector: '.card-cell',
       layoutMode: 'fitRows',

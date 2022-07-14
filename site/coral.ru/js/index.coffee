@@ -48,18 +48,19 @@ ASAP ->
 
     preload libs, ->
         # Remove/hide group selector(s) that has no cards
-        $('.group-filters > *').each (idx, el) ->
-            $el = $(el)
-            group2check = $el.attr 'data-group'
-            if group2check != '*'
-                unless $(".card-cell[data-group*='#{ group2check }']").length
-                    default_group_removed = $el.hasClass('selected') or default_group_removed
-                    $el.remove()
-            if default_group_removed
-                $('.group-filters [data-group="*"]').addClass 'selected'
+#        $('.group-filters > *').each (idx, el) ->
+#            $el = $(el)
+#            group2check = $el.attr 'data-group'
+#            if group2check != '*'
+#                unless $(".card-cell[data-group*='#{ group2check }']").length
+#                    default_group_removed = $el.hasClass('selected') or default_group_removed
+#                    $el.remove()
+#            if default_group_removed
+#                $('.group-filters [data-group="*"]').addClass 'selected'
 
-        group2select = $('.group-filters > *.selected').attr('data-group')
-        initial_selector = if group2select != '*' then "[data-group*='#{ group2select }']" else '*'
+        initial_selector = '*'
+        if group2select = $('.group-filters > *.selected').attr('data-group')
+            initial_selector = if group2select != '*' then "[data-group*='#{ group2select }']" else '*'
 
         $grid = $('.cards-grid').isotope
             itemSelector: '.card-cell'
