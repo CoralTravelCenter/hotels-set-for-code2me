@@ -143,17 +143,21 @@
 }
 #hotels-set .group-filters {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
 }
 #hotels-set .group-filters > * {
-  flex: 1 1 auto;
-  margin: 1em;
+  flex: 0 1 auto;
+  margin: 0.5em 1em;
   -webkit-transition: color 0.5s, bacgground 0.5s;
   -moz-transition: color 0.5s, bacgground 0.5s;
   -ms-transition: color 0.5s, bacgground 0.5s;
   -o-transition: color 0.5s, bacgground 0.5s;
   transition: color 0.5s, bacgground 0.5s;
   cursor: pointer;
+}
+#hotels-set .group-filters > *[data-group='*'] {
+  flex-grow: 1;
 }
 #hotels-set .group-filters > *.selected {
   pointer-events: none;

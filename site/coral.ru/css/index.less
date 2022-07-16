@@ -57,15 +57,17 @@
 
 	.group-filters {
 		display: flex;
+		justify-content: center;
 		flex-wrap: wrap;
-
 		> * {
-			flex: 1 1 auto;
-			margin: 1em;
+			flex: 0 1 auto;
+			margin: .5em 1em;
 			.transit(color);
 			.transit(bacgground);
 			cursor: pointer;
-
+			&[data-group='*'] {
+				flex-grow: 1;
+			}
 			&.selected {
 				pointer-events: none;
 				color: white;
