@@ -46,28 +46,19 @@ window.queryParam ||= (p, nocase) ->
 ASAP ->
     libs = ['https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js']
 
-    preload libs, ->
-        # Remove/hide group selector(s) that has no cards
-#        $('.group-filters > *').each (idx, el) ->
-#            $el = $(el)
-#            group2check = $el.attr 'data-group'
-#            if group2check != '*'
-#                unless $(".card-cell[data-group*='#{ group2check }']").length
-#                    default_group_removed = $el.hasClass('selected') or default_group_removed
-#                    $el.remove()
-#            if default_group_removed
-#                $('.group-filters [data-group="*"]').addClass 'selected'
+    $ctx = $('#hotels-set')
 
+    preload libs, ->
         initial_selector = '*'
-        if group2select = $('.group-filters > *.selected').attr('data-group')
+        if group2select = $('.group-filters > *.selected', $ctx).attr('data-group')
             initial_selector = if group2select != '*' then "[data-group*='#{ group2select }']" else '*'
 
-        $grid = $('.cards-grid').isotope
+        $grid = $('.cards-grid', $ctx).isotope
             itemSelector: '.card-cell'
             layoutMode: 'fitRows'
             stagger: 30
             filter: initial_selector
-        $('.group-filters > [data-group]').on 'click', ->
+        $('.group-filters > [data-group]', $ctx).on 'click', ->
             $this = $(this)
             group = $this.attr('data-group')
             selector = if group != '*' then "[data-group*='#{ group }']" else '*'
@@ -75,5 +66,5 @@ ASAP ->
             $this.addClass('selected').siblings('.selected').removeClass('selected')
 
         setTimeout ->
-            $('#hotels-set').addClass('shown')
+            $ctx.addClass('shown')
         , 0

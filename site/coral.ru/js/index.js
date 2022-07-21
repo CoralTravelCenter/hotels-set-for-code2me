@@ -101,21 +101,22 @@ window.queryParam || (window.queryParam = function(p, nocase) {
 });
 
 ASAP(function() {
-  var libs;
+  var $ctx, libs;
   libs = ['https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js'];
+  $ctx = $('#hotels-set');
   return preload(libs, function() {
     var $grid, group2select, initial_selector;
     initial_selector = '*';
-    if (group2select = $('.group-filters > *.selected').attr('data-group')) {
+    if (group2select = $('.group-filters > *.selected', $ctx).attr('data-group')) {
       initial_selector = group2select !== '*' ? "[data-group*='" + group2select + "']" : '*';
     }
-    $grid = $('.cards-grid').isotope({
+    $grid = $('.cards-grid', $ctx).isotope({
       itemSelector: '.card-cell',
       layoutMode: 'fitRows',
       stagger: 30,
       filter: initial_selector
     });
-    $('.group-filters > [data-group]').on('click', function() {
+    $('.group-filters > [data-group]', $ctx).on('click', function() {
       var $this, group, selector;
       $this = $(this);
       group = $this.attr('data-group');
@@ -126,7 +127,7 @@ ASAP(function() {
       return $this.addClass('selected').siblings('.selected').removeClass('selected');
     });
     return setTimeout(function() {
-      return $('#hotels-set').addClass('shown');
+      return $ctx.addClass('shown');
     }, 0);
   });
 });
