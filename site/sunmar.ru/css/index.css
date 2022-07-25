@@ -83,6 +83,7 @@
   -ms-transition: opacity 0.5s, transform 0.5s;
   -o-transition: opacity 0.5s, transform 0.5s;
   transition: opacity 0.5s, transform 0.5s;
+  overflow: hidden;
 }
 #hotels-set,
 #hotels-set * {
