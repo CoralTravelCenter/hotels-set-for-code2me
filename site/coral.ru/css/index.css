@@ -166,8 +166,11 @@
   background-color: #0093D0;
 }
 #hotels-set .cards-grid .card-cell {
+  display: flex;
+  flex-direction: column;
   width: 25%;
   padding: 1em;
+  min-height: 0;
 }
 @media screen and (max-width: 1280px) {
   #hotels-set .cards-grid .card-cell {
@@ -186,6 +189,7 @@
 }
 #hotels-set .cards-grid .card-cell > .pad {
   position: relative;
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -252,6 +256,7 @@
 }
 #hotels-set .cards-grid .card-cell > .pad .info {
   width: 100%;
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -283,6 +288,30 @@
   line-height: 1.2;
   text-align: inherit;
   margin: 0;
+}
+#hotels-set .cards-grid .card-cell > .pad .info .benefits {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  font-weight: normal;
+  margin-bottom: auto;
+}
+#hotels-set .cards-grid .card-cell > .pad .info .benefits > * {
+  max-width: 100%;
+}
+#hotels-set .cards-grid .card-cell > .pad .info .benefits > * {
+  display: flex;
+  font-size: 13px;
+  line-height: 1.1;
+}
+#hotels-set .cards-grid .card-cell > .pad .info .benefits > *:nth-child(n+2) {
+  margin-top: 0.25em;
+}
+#hotels-set .cards-grid .card-cell > .pad .info .benefits > *:before {
+  content: '\25CF';
+  margin-right: 0.5em;
+  color: #F0AB00;
 }
 #hotels-set .cards-grid .card-cell > .pad .info .terms {
   font-weight: normal;

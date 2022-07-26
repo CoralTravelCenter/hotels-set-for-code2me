@@ -61,10 +61,10 @@ window.preload || (window.preload = function(what, fn) {
     what = [what];
   }
   return $.when.apply($, (function() {
-    var i, len, results;
+    var j, len, results;
     results = [];
-    for (i = 0, len = what.length; i < len; i++) {
-      lib = what[i];
+    for (j = 0, len = what.length; j < len; j++) {
+      lib = what[j];
       results.push($.ajax(lib, {
         dataType: 'script',
         cache: true
@@ -110,7 +110,27 @@ ASAP(function() {
     if (group2select = $('.group-filters > *.selected', $ctx).attr('data-group')) {
       initial_selector = group2select !== '*' ? "[data-group*='" + group2select + "']" : '*';
     }
-    $grid = $('.cards-grid', $ctx).isotope({
+    $grid = $('.cards-grid', $ctx).on('layoutComplete', function(e, items) {
+      var by_top, els, max_height, results, row, t, tallest_item;
+      els = items.map(function(i) {
+        return i.element;
+      });
+      by_top = _.groupBy(els, function(el) {
+        return $(el).css('top');
+      });
+      results = [];
+      for (t in by_top) {
+        row = by_top[t];
+        tallest_item = _.maxBy(row, function(el) {
+          return $(el).outerHeight();
+        });
+        max_height = $(tallest_item).outerHeight();
+        results.push($(row).css({
+          minHeight: max_height
+        }));
+      }
+      return results;
+    }).isotope({
       itemSelector: '.card-cell',
       layoutMode: 'fitRows',
       stagger: 30,
@@ -121,6 +141,9 @@ ASAP(function() {
       $this = $(this);
       group = $this.attr('data-group');
       selector = group !== '*' ? "[data-group*='" + group + "']" : '*';
+      $grid.find('.card-cell').css({
+        minHeight: 0
+      });
       $grid.isotope({
         filter: selector
       });

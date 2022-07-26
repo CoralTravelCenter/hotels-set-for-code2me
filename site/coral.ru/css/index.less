@@ -79,8 +79,12 @@
 
 	.cards-grid {
 		.card-cell {
+			display: flex;
+			flex-direction: column;
 			width: 100%/4;
 			padding: 1em;
+			min-height: 0;
+			//.transit(min-height);
 			@media screen and (max-width: 1280px) {
 				width: 100%/3;
 			}
@@ -93,24 +97,28 @@
 
 			> .pad {
 				position: relative;
+				flex: 1;
 				.flex-column;
 				align-items: center;
 				background-color: white;
 				border-radius: 1em;
 				overflow: hidden;
 				padding-bottom: 1.5em;
+
 				.visual {
 					width: 100%;
 					.proportional(320/180);
 					background: center no-repeat;
 					background-size: cover;
 					border-radius: 1em;
+
 					[is="hotel-stars"] {
 						display: flex;
 						justify-content: center;
 						align-items: center;
 						//filter: drop-shadow(0px 0px 4px white);
 						filter: drop-shadow(0px -2px 2px #0093D0);
+
 						.star {
 							width: 1.5em;
 							height: 100%;
@@ -118,8 +126,10 @@
 							background: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjkiIGhlaWdodD0iMjkiIHZpZXdCb3g9IjAgMCAyOSAyOSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTkuNjEwMiA4LjIyMDIxTDI3LjUwMTEgOS4zNzk0NUMyNy44MjMzIDkuNDI2NDIgMjguMTI2IDkuNTYxOCAyOC4zNzUyIDkuNzcwNDFDMjguNjI0NSA5Ljk3OTAyIDI4LjgxMDUgMTAuMjUyNiAyOC45MTI0IDEwLjU2MDZDMjkuMDE0MiAxMC44NzAyIDI5LjAyNzUgMTEuMjAxOSAyOC45NTA5IDExLjUxODZDMjguODc0MyAxMS44MzUzIDI4LjcxMDggMTIuMTI0NiAyOC40Nzg2IDEyLjM1NDFMMjIuNzU2NyAxNy45NDI1TDI0LjEwNzUgMjUuOTU4N0MyNC4xNjI2IDI2LjI4MTUgMjQuMTI1NCAyNi42MTMxIDI0LjAwMDIgMjYuOTE1OEMyMy44NzQ5IDI3LjIxODUgMjMuNjY2NiAyNy40Nzk5IDIzLjM5OTIgMjcuNjcwM0MyMy4xMzMgMjcuODYwNyAyMi44MTg4IDI3Ljk3MzMgMjIuNDkxOCAyNy45OTU1QzIyLjE2NDkgMjguMDE3NyAyMS44MzgyIDI3Ljk0ODcgMjEuNTQ4NiAyNy43OTZMMTQuNDk3OCAyNC4wNTMxTDcuNDUyNDYgMjcuNzk4OEM3LjE2MTg3IDI3Ljk1MTUgNi44MzQzMiAyOC4wMjA2IDYuNTA2NDkgMjcuOTk4NEM2LjE3ODY3IDI3Ljk3NjIgNS44NjM1NCAyNy44NjM1IDUuNTk2NDEgMjcuNjczQzUuMzI5NjUgMjcuNDgyMiA1LjEyMjI0IDI3LjIyMDUgNC45OTc5MyAyNi45MTc4QzQuODczNjIgMjYuNjE1MSA0LjgzNzQ0IDI2LjI4MzcgNC44OTM1MiAyNS45NjE1TDYuMjQ0MzggMTcuOTQ1MkwwLjUyMDgxNCAxMi4zNTQxQzAuMjg4ODI0IDEyLjEyNDUgMC4xMjU0NjcgMTEuODM1MiAwLjA0ODk2MzggMTEuNTE4NUMtMC4wMjc1Mzk3IDExLjIwMTggLTAuMDE0MTgyMSAxMC44NzAxIDAuMDg3NTUxIDEwLjU2MDZDMC4xODg5MDggMTAuMjUyIDAuMzc0OTU4IDkuOTc3ODYgMC42MjQ2NTQgOS43NjkxM0MwLjg3NDM1IDkuNTYwNCAxLjE3NzczIDkuNDI1NDEgMS41MDA0NiA5LjM3OTQ1TDkuMzg0ODUgOC4yMjAyMUwxMi45MjEyIDAuOTg0MjY1QzEzLjA2NDQgMC42ODkyNjIgMTMuMjg4MyAwLjQ0MDQzNiAxMy41NjcgMC4yNjYzNDJDMTMuODQ1OCAwLjA5MjI0ODEgMTQuMTY4MiAtNi4wNjA4OWUtMDUgMTQuNDk3MiA1LjY2NzUzZS0wNkMxNC44MjcyIC0wLjAwMDgzMTUyMyAxNS4xNTA2IDAuMDkxMDk3NiAxNS40MzA0IDAuMjY1MjIxQzE1LjcxMDIgMC40MzkzNDQgMTUuOTM0OSAwLjY4ODU4NiAxNi4wNzg3IDAuOTg0MjY1TDE5LjYxMDIgOC4yMjAyMVoiIGZpbGw9IiNGMEFCMDAiLz48L3N2Zz4K") center no-repeat;
 							background-size: contain;
 						}
+
 						&:not([data-category*='*']) {
 							filter: none;
+
 							&:after {
 								content: attr(data-category);
 								font-size: 1.2em;
@@ -132,6 +142,7 @@
 							}
 						}
 					}
+
 					.trait {
 						height: 1.5em;
 						top: 100%;
@@ -144,6 +155,7 @@
 
 				.info {
 					width: 100%;
+					flex-grow: 1;
 					.flex-column;
 					align-items: center;
 					text-align: center;
@@ -171,12 +183,37 @@
 						margin: 0;
 					}
 
+					.benefits {
+						width: 100%;
+						.flex-column;
+						text-align: left;
+						font-weight: normal;
+						margin-bottom: auto;
+
+						> * {
+							display: flex;
+							font-size: 13px;
+							line-height: 1.1;
+
+							&:nth-child(n+2) {
+								margin-top: .25em;
+							}
+
+							&:before {
+								content: '\25CF';
+								margin-right: .5em;
+								color: #F0AB00;
+							}
+						}
+					}
+
 					.terms {
 						font-weight: normal;
 						line-height: 1;
 						display: flex;
 						flex-wrap: wrap;
 						justify-content: center;
+
 						.term-badge {
 							flex: 0 1 auto;
 							display: inline-flex;
@@ -184,6 +221,7 @@
 							font-size: 11px;
 							line-height: 1;
 							margin: 2px;
+
 							.icon {
 								position: relative;
 								flex-shrink: 0;
@@ -194,10 +232,12 @@
 								color: #0093D0;
 								font-weight: bold;
 								border-radius: 3px;
+
 								&:before {
 									.abs100x100;
 								}
 							}
+
 							.label {
 								display: inline-flex;
 								align-items: center;
@@ -205,6 +245,7 @@
 								height: 2.2em;
 								padding: 0 0.5em;
 							}
+
 							&.depart-from {
 								.icon {
 									&:before {
@@ -214,6 +255,7 @@
 									}
 								}
 							}
+
 							&.depart-date {
 								.icon {
 									&:before {
@@ -223,11 +265,13 @@
 									}
 								}
 							}
+
 							&.accomodation {
 								.icon {
 
 								}
 							}
+
 							&.meal {
 								.icon {
 									&:before {
@@ -239,6 +283,7 @@
 							}
 						}
 					}
+
 					.price-info {
 						display: flex;
 						align-items: baseline;
@@ -246,16 +291,19 @@
 						font-weight: bold;
 						font-size: 1.5em;
 						margin-top: .66em;
+
 						&.from:before {
 							content: 'от ';
 							font-weight: normal;
 							font-size: 66%;
 						}
+
 						&:after {
 							font-weight: normal;
 							font-size: 66%;
 						}
 					}
+
 					.actions {
 						position: absolute;
 						left: 0;
@@ -263,6 +311,7 @@
 						width: 100%;
 						display: flex;
 						flex-direction: column;
+
 						.buttonlike {
 							font-size: 13px;
 							border-radius: 0;

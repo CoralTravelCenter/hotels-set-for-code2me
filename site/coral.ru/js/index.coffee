@@ -53,7 +53,15 @@ ASAP ->
         if group2select = $('.group-filters > *.selected', $ctx).attr('data-group')
             initial_selector = if group2select != '*' then "[data-group*='#{ group2select }']" else '*'
 
-        $grid = $('.cards-grid', $ctx).isotope
+        $grid = $('.cards-grid', $ctx)
+        .on 'layoutComplete', (e, items) ->
+            els = items.map (i) -> i.element
+            by_top = _.groupBy els, (el) -> $(el).css('top')
+            for t, row of by_top
+                tallest_item = _.maxBy row, (el) -> $(el).outerHeight()
+                max_height = $(tallest_item).outerHeight()
+                $(row).css minHeight: max_height
+        .isotope
             itemSelector: '.card-cell'
             layoutMode: 'fitRows'
             stagger: 30
@@ -62,6 +70,7 @@ ASAP ->
             $this = $(this)
             group = $this.attr('data-group')
             selector = if group != '*' then "[data-group*='#{ group }']" else '*'
+            $grid.find('.card-cell').css minHeight: 0
             $grid.isotope filter: selector
             $this.addClass('selected').siblings('.selected').removeClass('selected')
 
