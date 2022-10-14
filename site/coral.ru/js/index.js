@@ -101,15 +101,39 @@ window.queryParam || (window.queryParam = function(p, nocase) {
 });
 
 ASAP(function() {
-  var $ctx, libs;
+  var $ctx, libs, selector_attrs, selector_attrs_string, selector_from_predicate, selector_predicate;
   libs = ['https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js'];
   $ctx = $('#hotels-set');
-  return preload(libs, function() {
-    var $grid, group2select, initial_selector;
-    initial_selector = '*';
-    if (group2select = $('.group-filters > *.selected', $ctx).attr('data-group')) {
-      initial_selector = group2select !== '*' ? "[data-group*='" + group2select + "']" : '*';
+  selector_attrs = ['data-group', 'data-year-month'];
+  selector_attrs_string = (selector_attrs.map(function(attr) {
+    return ".filters-wrap [" + attr + "]";
+  })).join(',');
+  selector_predicate = function() {
+    var predicate;
+    predicate = {};
+    $('.filters-wrap *.selected', $ctx).each(function(idx, button) {
+      return selector_attrs.forEach(function(attr_name) {
+        var attr_value;
+        attr_value = $(button).attr(attr_name);
+        if (attr_value) {
+          return predicate[attr_name] = attr_value;
+        }
+      });
+    });
+    return predicate;
+  };
+  selector_from_predicate = function(predicate) {
+    var k, selector, v;
+    selector = '';
+    for (k in predicate) {
+      v = predicate[k];
+      selector += (v === '*' ? '*' : "[" + k + "='" + v + "']");
     }
+    return selector || '*';
+  };
+  preload(libs, function() {
+    var $grid, initial_selector;
+    initial_selector = selector_from_predicate(selector_predicate());
     $grid = $('.cards-grid', $ctx).on('layoutComplete', function(e, items) {
       var by_top, els, max_height, results, row, t, tallest_item;
       els = items.map(function(i) {
@@ -136,21 +160,20 @@ ASAP(function() {
       stagger: 30,
       filter: initial_selector
     });
-    $('.group-filters > [data-group]', $ctx).on('click', function() {
-      var $this, group, selector;
+    $(selector_attrs_string, $ctx).on('click', function() {
+      var $this;
       $this = $(this);
-      group = $this.attr('data-group');
-      selector = group !== '*' ? "[data-group*='" + group + "']" : '*';
       $grid.find('.card-cell').css({
         minHeight: 0
       });
-      $grid.isotope({
-        filter: selector
+      $this.addClass('selected').siblings('.selected').removeClass('selected');
+      return $grid.isotope({
+        filter: selector_from_predicate(selector_predicate())
       });
-      return $this.addClass('selected').siblings('.selected').removeClass('selected');
     });
     return setTimeout(function() {
       return $ctx.addClass('shown');
     }, 0);
   });
+  return true;
 });

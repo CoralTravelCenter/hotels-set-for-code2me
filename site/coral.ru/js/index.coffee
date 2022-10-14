@@ -48,11 +48,24 @@ ASAP ->
 
     $ctx = $('#hotels-set')
 
-    preload libs, ->
-        initial_selector = '*'
-        if group2select = $('.group-filters > *.selected', $ctx).attr('data-group')
-            initial_selector = if group2select != '*' then "[data-group*='#{ group2select }']" else '*'
+    selector_attrs = ['data-group','data-year-month']
+    selector_attrs_string = (selector_attrs.map (attr) -> ".filters-wrap [#{ attr }]").join ','
 
+    selector_predicate = () ->
+        predicate = {}
+        $('.filters-wrap *.selected', $ctx).each (idx, button) ->
+            selector_attrs.forEach (attr_name) ->
+                attr_value = $(button).attr attr_name
+                predicate[attr_name] = attr_value if attr_value
+        predicate
+
+    selector_from_predicate = (predicate) ->
+        selector = ''
+        selector += (if v == '*' then '*' else "[#{ k }='#{ v }']") for k,v of predicate
+        selector or '*'
+
+    preload libs, ->
+        initial_selector = selector_from_predicate selector_predicate()
         $grid = $('.cards-grid', $ctx)
         .on 'layoutComplete', (e, items) ->
             els = items.map (i) -> i.element
@@ -66,14 +79,13 @@ ASAP ->
             layoutMode: 'fitRows'
             stagger: 30
             filter: initial_selector
-        $('.group-filters > [data-group]', $ctx).on 'click', ->
+        $(selector_attrs_string, $ctx).on 'click', ->
             $this = $(this)
-            group = $this.attr('data-group')
-            selector = if group != '*' then "[data-group*='#{ group }']" else '*'
             $grid.find('.card-cell').css minHeight: 0
-            $grid.isotope filter: selector
             $this.addClass('selected').siblings('.selected').removeClass('selected')
+            $grid.isotope filter: selector_from_predicate(selector_predicate())
 
         setTimeout ->
             $ctx.addClass('shown')
         , 0
+    yes

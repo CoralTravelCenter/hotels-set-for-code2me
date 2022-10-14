@@ -144,6 +144,7 @@
 }
 #hotels-set .filters-wrap {
   display: flex;
+  align-items: flex-start;
   background-color: white;
   border-radius: 1em;
   padding: 0.5em;
